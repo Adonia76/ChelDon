@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify'; // Import toast
 
 function ProdukList() {
   const [produk, setProduk] = useState([]);
@@ -26,8 +27,30 @@ function ProdukList() {
     axios.delete(`http://localhost:3001/produk/${id}`)
       .then(() => {
         setProduk(produk.filter((p) => p.id !== id));
+
+        // Tampilkan notifikasi sukses
+        toast.success('Produk berhasil dihapus!', {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
       })
-      .catch(err => console.error(err));
+      .catch(err => {
+        console.error('Error menghapus produk:', err);
+
+        // Tampilkan notifikasi error
+        toast.error('Gagal menghapus produk. Silakan coba lagi.', {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+      });
   };
 
   const handleEditSubmit = (e) => {
@@ -44,9 +67,32 @@ function ProdukList() {
             p.id === editingProduk.id ? { ...p, ...updatedData } : p
           )
         );
+
+        // Tampilkan notifikasi sukses
+        toast.success('Produk berhasil diperbarui!', {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+
         closeEditModal();
       })
-      .catch(err => console.error(err));
+      .catch(err => {
+        console.error('Error mengedit produk:', err);
+
+        // Tampilkan notifikasi error
+        toast.error('Gagal memperbarui produk. Silakan coba lagi.', {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+      });
   };
 
   return (

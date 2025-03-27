@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify'; // Import toast
 
 function TambahProduk() {
   const [nama, setNama] = useState('');
@@ -18,12 +19,33 @@ function TambahProduk() {
     setIsLoading(true); // Aktifkan loading
 
     try {
-      await axios.post('http://localhost:3001/produk', { nama, harga });
+      const response = await axios.post('http://localhost:3001/produk', { nama, harga });
+      
+      // Tampilkan notifikasi sukses
+      toast.success('Produk berhasil ditambahkan!', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+
+      // Reset form
       setNama('');
       setHarga('');
     } catch (err) {
       console.error('Error menambah produk:', err);
-      setError('Gagal menambah produk. Silakan coba lagi.');
+
+      // Tampilkan notifikasi error
+      toast.error('Gagal menambah produk. Silakan coba lagi.', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     } finally {
       setIsLoading(false); // Matikan loading
     }
