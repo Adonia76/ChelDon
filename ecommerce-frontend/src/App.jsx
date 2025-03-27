@@ -1,35 +1,25 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import ProdukList from './components/ProdukList.jsx';
+import TambahProduk from './components/tambahproduk.jsx';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="min-vh-100 d-flex flex-column justify-content-center align-items-center bg-light">
+      {/* Container Utama */}
+      <div className="container text-center p-4 bg-white rounded shadow" style={{ maxWidth: '600px' }}>
+        <h1 className="mb-4">E-Commerce Sederhana</h1>
+
+        {/* Form Tambah Produk */}
+        <TambahProduk />
+
+        {/* Garis Pemisah */}
+        <hr className="my-4" />
+
+        {/* Daftar Produk */}
+        <ProdukList />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
